@@ -4,11 +4,11 @@
             "id": "willow-hd-new",
             "name": "Willow HD",
             "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
-            "mpdUrl": "\u007f4-aka>2h=4*=ap}\u001fP\u0005\u0012,8:p}j>$'8~?;#f/da ;.0>g|<7&1a06b=&-?q#\u007f#f~k4a50e2jc3050a6ak5aib1m744aeebfh|10mc.m#7 6<a2vo7)%",
+            "mpdUrl": "https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/83taeafait/out/v1/8f460e2902ee422e9ee8229e6de25719/cenc.mpd",
             "quality": "1080p HQ",
             "drm": {
                 "clearKeys": {
-                    "676c35k35b42cableah=3514f0cf319frd3aagk6b7d<db65kf3255c3f10m56115ri": "$t >+}16aab=$m$p;9;20"
+                    "ed76c18710d621a87c89dedc7c13019f": "7241c82fe48525a9dc6be6d7bb86611f"
                 }
             }
         },
@@ -16,37 +16,22 @@
             "id": "willow-hd-new",
             "name": "Willow HD",
             "logo": "https://i.postimg.cc/qvWjHkTq/download.png",
-            "mpdUrl": "877:p.cr:0c *~}gk?\u007fl=#,8;t5+e`lnbfbzTCB-\u0006\u0000.da6f7+cc=ag0{?c#p2\"{:b&jt\"",
-            "quality": "1080p",
-            "drm": {
-                "clearKeys": {
-                    "rri": "$t >+}#p#5b9|o?o6;16>=;{ne/l:%dz3f}tl\"\u007fl%$s'h-\u007fh>&0"
-                }
-            }
+            "streamUrl": "https://stream.mokakdaoni.me/live/cb.php/https://livevideos.cricbuzz.com/hls/live/2099350/WCB-US/11253/139073/master.m3u8",
+            "quality": "1080p"
         },
         {
             "id": "papare-tv",
             "name": "Papare TV",
             "logo": "https://yt3.googleusercontent.com/krdKKbHCJcmCBS-eHNDn9LYF-yRxILw0rkpfyKiDPfMLVMZ4LUzSJ_wBUabhEpuyqKpzraS3Kg=s900-c-k-c0x00ffffff-no-rj",
-            "mpdUrl": "2 0-com|<t",
-            "quality": "1080p",
-            "drm": {
-                "clearKeys": {
-                    "rri": "$t >+}<m'5`0<;~p?5%6"
-                }
-            }
+            "streamUrl": "https://livecdn9.thepapare.com/out/v1/94079f84fc2a447e95eab8010708c0ae/index.m3u8",
+            "quality": "1080p"
         },
         {
             "id": "papare-tv-sin",
             "name": "Papare Tv Sinhala",
             "logo": "https://yt3.googleusercontent.com/krdKKbHCJcmCBS-eHNDn9LYF-yRxILw0rkpfyKiDPfMLVMZ4LUzSJ_wBUabhEpuyqKpzraS3Kg=s900-c-k-c0x00ffffff-no-rj",
-            "mpdUrl": "2 0-com|<t",
-            "quality": "HD",
-            "drm": {
-                "clearKeys": {
-                    "rri": "$t >+}<m'5`0<3~p?5%6"
-                }
-            }
+            "streamUrl": "https://livecdn1.thepapare.com/out/v1/62cb03ab26ca4d35a75f842586fde664/index.m3u8",
+            "quality": "HD"
         }
     ]
 }
