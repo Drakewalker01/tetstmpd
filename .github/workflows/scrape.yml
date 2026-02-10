@@ -6,22 +6,46 @@ on:
       - 'link.json'
   workflow_dispatch:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 * * * *' # සෑම පැයකටම වරක් ස්වයංක්‍රීයව ක්‍රියාත්මක වේ
 
 jobs:
   run-scraper:
     runs-on: ubuntu-latest
+    
+    # GitHub Action එකට Repo එකට ලිවීමට අවසර ලබා දීම
+    permissions:
+      contents: write
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-      - run: pip install requests beautifulsoup4
-      - run: python scraper.py
-      - name: Commit changes
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Run scraper
+        env:
+          # GitHub Secret එක මෙහිදී 'SECRET_HASH' ලෙස Python script එකට ලබා දෙයි
+          SECRET_HASH: ${{ secrets.MY_SECRET_HASH }}
+        run: python scraper.py
+
+      - name: Commit and Push changes
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add final.json
-          git commit -m "Update final.json" || exit 0
-          git push
+          
+          # final.json පවතින්නේ දැයි පරීක්ෂා කර තිබේ නම් පමණක් commit කිරීම
+          if [ -f final.json ]; then
+            git add final.json
+            git commit -m "Update final.json with latest streams" || echo "No changes to commit"
+            git push
+          else
+            echo "Error: final.json file eka hadune na! Script eka parikhsha karanna."
+            exit 1
+          fi
