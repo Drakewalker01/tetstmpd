@@ -6,13 +6,13 @@ on:
       - 'link.json'
   workflow_dispatch:
   schedule:
-    - cron: '0 * * * *' # සෑම පැයකටම වරක් ස්වයංක්‍රීයව ක්‍රියාත්මක වේ
+    - cron: '15 * * * *' # 
 
 jobs:
   run-scraper:
     runs-on: ubuntu-latest
     
-    # GitHub Action එකට Repo එකට ලිවීමට අවසර ලබා දීම
+    # GitHub Action 
     permissions:
       contents: write
 
@@ -31,7 +31,7 @@ jobs:
 
       - name: Run scraper
         env:
-          # GitHub Secret එක මෙහිදී 'SECRET_HASH' ලෙස Python script එකට ලබා දෙයි
+        
           SECRET_HASH: ${{ secrets.MY_SECRET_HASH }}
         run: python scraper.py
 
