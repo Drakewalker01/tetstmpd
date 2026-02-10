@@ -46,6 +46,6 @@ jobs:
             git commit -m "Update final.json with latest streams" || echo "No changes to commit"
             git push
           else
-            echo "Error: final.json file Missing."
+            echo "Error: final.json file didnt created."
             exit 1
           fi
