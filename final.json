@@ -10,5 +10,17 @@
                 "ed76c18710d621a87c89dedc7c13019f": "7241c82fe48525a9dc6be6d7bb86611f"
             }
         }
+    },
+    {
+        "id": "willow-extra",
+        "name": "tt",
+        "logo": "https://i.postimg.cc/gkSg0cCP/512x512bb.jpg",
+        "mpdUrl": "https://stream.mokakdaoni.me/live/cb.php/https://livevideos.cricbuzz.com/hls/live/2099350/WCB-US/11253/139073/master.m3u8",
+        "quality": "1080p HQ",
+        "drm": {
+            "clearKeys": {
+                "": ""
+            }
+        }
     }
 ]
