@@ -22,7 +22,7 @@ def process_links():
             print(f"Processing: {channel.get('name')}")
 
             res = requests.get(site_url, headers=headers, timeout=10)
-            hi_match = re.search(r'const encryptedData\s*=\s*"(.*?)";', res.text)
+            hi_match = re.search(r'const hi\s*=\s*"(.*?)";', res.text)
             
             if hi_match:
                 scraped_code = hi_match.group(1)
