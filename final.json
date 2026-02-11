@@ -13,6 +13,18 @@
             }
         },
         {
+            "id": "prime-tvstream2",
+            "name": "Prime Stream 2",
+            "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
+            "mpdUrl": "https://a65live-pv-ta-amazon.akamaized.net/syd-nitro/live/clients/dash/enc/ryfoddshmd/out/v1/2298afadf64943adb0b44dc540ace1ce/cenc.mpd?amznDtid=AOAGZA014O5RE&encoding=segmentBase",
+            "quality": "1080p",
+            "drm": {
+                "clearKeys": {
+                    "cd2266bd1085a92143007be26296daeb": "1a21a3cbb8e8062c3a82135a47389c2b"
+                }
+            }
+        },
+        {
             "id": "prime-tvstream3",
             "name": "Prime Stream 3",
             "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
