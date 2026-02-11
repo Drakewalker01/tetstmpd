@@ -6,13 +6,12 @@ on:
       - 'link.json'
   workflow_dispatch:
   schedule:
-    - cron: '15 * * * *' # 
+    - cron: '15 * * * *' 
 
 jobs:
   run-scraper:
     runs-on: ubuntu-latest
     
-    # GitHub Action 
     permissions:
       contents: write
 
@@ -25,13 +24,19 @@ jobs:
         with:
           python-version: '3.x'
 
+      # FFmpeg සහ FFprobe ස්ථාපනය කිරීම
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4
+          pip install requests
 
       - name: Run scraper
         env:
-        
+          # ඔබ GitHub Secrets වල MY_SECRET_HASH නමින් මෙය save කර තිබිය යුතුයි
           SECRET_HASH: ${{ secrets.MY_SECRET_HASH }}
         run: python scraper.py
 
@@ -40,12 +45,11 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           
-        
           if [ -f final.json ]; then
             git add final.json
-            git commit -m "Update final.json with latest streams" || echo "No changes to commit"
+            git commit -m "Update final.json with verified streams" || echo "No changes to commit"
             git push
           else
-            echo "Error: final.json file didnt created."
+            echo "Error: final.json was not created."
             exit 1
           fi
