@@ -6,12 +6,13 @@ on:
       - 'link.json'
   workflow_dispatch:
   schedule:
-    - cron: '15 * * * *' 
+    - cron: '15 * * * *' # 
 
 jobs:
   run-scraper:
     runs-on: ubuntu-latest
     
+    # GitHub Action 
     permissions:
       contents: write
 
@@ -24,18 +25,13 @@ jobs:
         with:
           python-version: '3.x'
 
-      # අවශ්ය නම් FFmpeg තබා ගන්න, නමුත් manifest checker එකට මෙය අනිවාර්ය නැත
-      - name: Install FFmpeg
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
-
       - name: Install dependencies
         run: |
-          pip install requests
+          pip install requests beautifulsoup4
 
       - name: Run scraper
         env:
+        
           SECRET_HASH: ${{ secrets.MY_SECRET_HASH }}
         run: python scraper.py
 
@@ -44,14 +40,12 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           
-          # ගොනු දෙකම git වෙත එක් කිරීම
-          # එක් ගොනුවක් හෝ නැති වුවහොත් error එකක් නොදී ඉදිරියට යාමට '|| true' භාවිතා කළ හැක
-          git add nocheck.json final.json || true
-          
-          # වෙනස්කම් තිබේ නම් පමණක් commit කිරීම
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update: Scraped (nocheck) and Verified (final) streams"
+        
+          if [ -f final.json ]; then
+            git add final.json
+            git commit -m "Update final.json with latest streams" || echo "No changes to commit"
             git push
+          else
+            echo "Error: final.json file didnt created."
+            exit 1
           fi
