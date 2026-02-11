@@ -8,74 +8,65 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 def check_playability(url):
-    """FFmpeg (ffprobe) භාවිතා කර stream එක කියවිය හැකිදැයි තත්පර 10ක් ඇතුළත පරීක්ෂා කරයි"""
+    """FFmpeg (ffprobe) මගින් සැබෑ Video/Audio streams තියෙනවාදැයි පරීක්ෂා කරයි"""
+    user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    
     try:
-        # ffprobe command: මෙහිදී stream එකේ headers සහ metadata පරීක්ෂා කරයි
+        # ffprobe එකට headers ලබා දීම වැදගත් (නැත්නම් block වෙන්න පුළුවන්)
         command = [
             'ffprobe', 
             '-v', 'error', 
-            '-show_entries', 'format=format_name', 
-            '-of', 'default=noprint_wrappers=1:nokey=1', 
-            '-timeout', '10000000', # Microseconds (තත්පර 10)
+            '-headers', f'User-Agent: {user_agent}\r\n',
+            '-show_entries', 'stream=codec_type', 
+            '-of', 'csv=p=0', 
+            '-timeout', '15000000', # තත්පර 15ක් දක්වා වැඩි කර ඇත
             url
         ]
-        # stream එක load කරගත නොහැකි නම් returncode 0 නොවේ
-        result = subprocess.run(command, capture_output=True, text=True, timeout=15)
-        return result.returncode == 0
+        
+        # මෙහිදී output එක ලෙස 'video' හෝ 'audio' වැනි වචන ලැබිය යුතුයි
+        result = subprocess.run(command, capture_output=True, text=True, timeout=20)
+        output = result.stdout.lower()
+        
+        # අවම වශයෙන් video හෝ audio stream එකක් තිබේදැයි බලයි
+        if result.returncode == 0 and ('video' in output or 'audio' in output):
+            return True
+        return False
     except Exception as e:
-        print(f"      ⚠️ Playability check error: {e}")
         return False
 
 def process_links():
     final_list = []
-    
-    # Session සහ Retry Logic
     session = requests.Session()
-    retry_strategy = Retry(
-        total=3,
-        backoff_factor=1,
-        status_forcelist=[429, 500, 502, 503, 504],
-    )
-    adapter = HTTPAdapter(max_retries=retry_strategy)
-    session.mount("https://", adapter)
-    session.mount("http://", adapter)
+    retry_strategy = Retry(total=3, backoff_factor=1, status_forcelist=[429, 500, 502, 503, 504])
+    session.mount("https://", HTTPAdapter(max_retries=retry_strategy))
 
-    # ගොනු කියවීම
     try:
         with open('link.json', 'r', encoding='utf-8') as f:
             channels = json.load(f)
-        
         hash_code = os.environ.get('SECRET_HASH')
         if not hash_code:
-            print("❌ Error: SECRET_HASH හමුවුණේ නැත.")
+            print("❌ SECRET_HASH missing")
             return
     except Exception as e:
-        print(f"❌ Error reading files: {e}")
+        print(f"❌ File error: {e}")
         return
 
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    }
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
 
     for channel in channels:
         try:
             site_url = channel.get('SiteUrl')
             if not site_url: continue
-                
-            print(f"🔄 Processing: {channel.get('name')}")
             
-            res = session.get(site_url, headers=headers, timeout=20)
-            res.raise_for_status()
-
-            # Data Scrape කිරීම
-            pattern = r'(?:const|var|let)\s+(?:hi|encryptedData|scrapedData)\s*=\s*["\'](.*?)["\']'
-            match = re.search(pattern, res.text)
+            print(f"🔄 Processing: {channel.get('name')}")
+            res = session.get(site_url, headers=headers, timeout=25)
+            
+            match = re.search(r'(?:const|var|let)\s+(?:hi|encryptedData|scrapedData)\s*=\s*["\'](.*?)["\']', res.text)
             
             if match:
                 scraped_code = match.group(1)
                 vercel_url = f"https://e-rho-ivory.vercel.app/get?url={scraped_code}&key={hash_code}"
-                
-                api_res = session.get(vercel_url, headers=headers, timeout=20)
+                api_res = session.get(vercel_url, headers=headers, timeout=25)
                 decrypted_str = api_res.json().get('decrypted', '')
 
                 if decrypted_str:
@@ -83,8 +74,8 @@ def process_links():
                     if len(parts) >= 3:
                         extracted_url = parts[2]
                         
-                        # 🔥 Playability Checker
-                        print(f"   🔍 Checking stream status...")
+                        # වැඩිදියුණු කළ Checker එක
+                        print(f"   🔍 Probing stream: {channel.get('name')}...")
                         if check_playability(extracted_url):
                             entry = {
                                 "id": channel.get('id'),
@@ -92,31 +83,28 @@ def process_links():
                                 "logo": channel.get('logo'),
                                 "quality": channel.get('quality')
                             }
-                            
                             if ".m3u8" in extracted_url:
                                 entry["streamUrl"] = extracted_url
                             else:
                                 entry["mpdUrl"] = extracted_url
-                                kid_list = [k.strip() for k in parts[0].split(',')]
-                                key_list = [k.strip() for k in parts[1].split(',')]
-                                entry["drm"] = { "clearKeys": dict(zip(kid_list, key_list)) }
+                                entry["drm"] = { 
+                                    "clearKeys": dict(zip(parts[0].split(','), parts[1].split(','))) 
+                                }
                             
                             final_list.append(entry)
-                            print(f"   ✅ Success: {channel.get('name')} is working.")
+                            print(f"   ✅ Verified: {channel.get('name')}")
                         else:
-                            print(f"   ❌ Skipped: {channel.get('name')} (Stream unplayable)")
+                            print(f"   ⚠️ Discarded: {channel.get('name')} (No active stream found)")
             
-            time.sleep(1) 
+            time.sleep(2) # Server එකට සහනයක් වීමට
 
         except Exception as e:
-            print(f"   ❌ Error on {channel.get('name')}: {e}")
+            print(f"   ❌ Error: {channel.get('name')} -> {e}")
 
-    # final.json සුරැකීම
-    output_data = {"channels": final_list}
     with open('final.json', 'w', encoding='utf-8') as f:
-        json.dump(output_data, f, indent=4, ensure_ascii=False)
+        json.dump({"channels": final_list}, f, indent=4, ensure_ascii=False)
     
-    print(f"\n✨ සාර්ථකයි! චැනල් {len(final_list)} ක් final.json වෙත එක් කරන ලදී.")
+    print(f"\nDone! {len(final_list)} channels added.")
 
 if __name__ == "__main__":
     process_links()
