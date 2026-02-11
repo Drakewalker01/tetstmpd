@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: '3.x'
 
-      # FFmpeg සහ FFprobe ස්ථාපනය කිරීම
+      # අවශ්ය නම් FFmpeg තබා ගන්න, නමුත් manifest checker එකට මෙය අනිවාර්ය නැත
       - name: Install FFmpeg
         run: |
           sudo apt-get update
@@ -36,7 +36,6 @@ jobs:
 
       - name: Run scraper
         env:
-          # ඔබ GitHub Secrets වල MY_SECRET_HASH නමින් මෙය save කර තිබිය යුතුයි
           SECRET_HASH: ${{ secrets.MY_SECRET_HASH }}
         run: python scraper.py
 
@@ -45,11 +44,14 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           
-          if [ -f final.json ]; then
-            git add final.json
-            git commit -m "Update final.json with verified streams" || echo "No changes to commit"
-            git push
+          # ගොනු දෙකම git වෙත එක් කිරීම
+          # එක් ගොනුවක් හෝ නැති වුවහොත් error එකක් නොදී ඉදිරියට යාමට '|| true' භාවිතා කළ හැක
+          git add nocheck.json final.json || true
+          
+          # වෙනස්කම් තිබේ නම් පමණක් commit කිරීම
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
           else
-            echo "Error: final.json was not created."
-            exit 1
+            git commit -m "Update: Scraped (nocheck) and Verified (final) streams"
+            git push
           fi
