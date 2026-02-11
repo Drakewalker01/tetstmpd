@@ -1,37 +1,3 @@
 {
-    "channels": [
-        {
-            "id": "prime-tvstream3",
-            "name": "Prime Stream 3",
-            "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
-            "mpdUrl": "https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/83taeafait/out/v1/8f460e2902ee422e9ee8229e6de25719/cenc.mpd",
-            "quality": "1080p",
-            "drm": {
-                "clearKeys": {
-                    "ed76c18710d621a87c89dedc7c13019f": "7241c82fe48525a9dc6be6d7bb86611f"
-                }
-            }
-        },
-        {
-            "id": "willow-hd-new",
-            "name": "Willow HD",
-            "logo": "https://i.postimg.cc/qvWjHkTq/download.png",
-            "streamUrl": "https://stream.mokakdaoni.me/live/cb.php/https://livevideos.cricbuzz.com/hls/live/2099350-b/WCB-US/11253/139084/master.m3u8",
-            "quality": "1080p"
-        },
-        {
-            "id": "papare-tv",
-            "name": "Papare TV",
-            "logo": "https://yt3.googleusercontent.com/krdKKbHCJcmCBS-eHNDn9LYF-yRxILw0rkpfyKiDPfMLVMZ4LUzSJ_wBUabhEpuyqKpzraS3Kg=s900-c-k-c0x00ffffff-no-rj",
-            "streamUrl": "https://livecdn9.thepapare.com/out/v1/94079f84fc2a447e95eab8010708c0ae/index.m3u8",
-            "quality": "1080p"
-        },
-        {
-            "id": "papare-tv-sin",
-            "name": "Papare Tv Sinhala",
-            "logo": "https://yt3.googleusercontent.com/krdKKbHCJcmCBS-eHNDn9LYF-yRxILw0rkpfyKiDPfMLVMZ4LUzSJ_wBUabhEpuyqKpzraS3Kg=s900-c-k-c0x00ffffff-no-rj",
-            "streamUrl": "https://livecdn1.thepapare.com/out/v1/62cb03ab26ca4d35a75f842586fde664/index.m3u8",
-            "quality": "HD"
-        }
-    ]
+    "channels": []
 }
