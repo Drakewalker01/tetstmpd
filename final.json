@@ -1,6 +1,36 @@
 {
     "channels": [
         {
+            "id": "papare-tv",
+            "name": "Papare TV",
+            "logo": "https://yt3.googleusercontent.com/krdKKbHCJcmCBS-eHNDn9LYF-yRxILw0rkpfyKiDPfMLVMZ4LUzSJ_wBUabhEpuyqKpzraS3Kg=s900-c-k-c0x00ffffff-no-rj",
+            "mpdUrl": "https://d2fml3b4eim0bv.cloudfront.net/out/v1/7506e85d06d4475e80d5e157d185eae8/index.mpd",
+            "quality": "1080p",
+            "drm": {
+                "clearKeys": {
+                    "97d31f87ed9535d6bce2efe69b11f056": "9334f911c3bc53531a769b8619fe59b6",
+                    "c495870808cc325c8efbb84ca753e8b8": "650bac355765b2f2b3838a3128708941",
+                    "9bfbe9231fdf30b0a83d9bb1d83b6d01": "074e566712adefd7c786c295d658d014",
+                    "e9e3db463c763f04a6eb8589184832e8": "ce735927a76f9419a25a6c70e81b9ef8"
+                }
+            }
+        },
+        {
+            "id": "papare-tv-sin",
+            "name": "Papare Tv Sinhala",
+            "logo": "https://yt3.googleusercontent.com/krdKKbHCJcmCBS-eHNDn9LYF-yRxILw0rkpfyKiDPfMLVMZ4LUzSJ_wBUabhEpuyqKpzraS3Kg=s900-c-k-c0x00ffffff-no-rj",
+            "mpdUrl": "https://d1u1q4dyvfijhv.cloudfront.net/out/v1/4298b56e9d0246c29f75c66e3b6d0032/index.mpd",
+            "quality": "HD",
+            "drm": {
+                "clearKeys": {
+                    "a2ca250b5452327d8c975e3d1a9e6f27": "b38e253e90e1dd00e4d5459220572d57",
+                    "38e755aa5f2532689813f76a406c1030": "4f760f1efb1a86280d40936f83b396ce",
+                    "d3c56f4f59c23eeebd330c66d3de952d": "34e0e82a064b139af58c3d33950cf88d",
+                    "813c331ab57635e3be339a50e407448d": "76f6b4f2b5f0c14d51c241f446a121b7"
+                }
+            }
+        },
+        {
             "id": "prime-tvstream",
             "name": "Prime Stream 1",
             "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
@@ -42,36 +72,6 @@
             "logo": "https://i.postimg.cc/qvWjHkTq/download.png",
             "streamUrl": "https://stream.mokakdaoni.me/live/cb.php/https://livevideos.cricbuzz.com/hls/live/2099350-b/WCB-US/11253/139084/master.m3u8",
             "quality": "1080p"
-        },
-        {
-            "id": "papare-tv",
-            "name": "Papare TV",
-            "logo": "https://yt3.googleusercontent.com/krdKKbHCJcmCBS-eHNDn9LYF-yRxILw0rkpfyKiDPfMLVMZ4LUzSJ_wBUabhEpuyqKpzraS3Kg=s900-c-k-c0x00ffffff-no-rj",
-            "mpdUrl": "https://d2fml3b4eim0bv.cloudfront.net/out/v1/7506e85d06d4475e80d5e157d185eae8/index.mpd",
-            "quality": "1080p",
-            "drm": {
-                "clearKeys": {
-                    "97d31f87ed9535d6bce2efe69b11f056": "9334f911c3bc53531a769b8619fe59b6",
-                    "c495870808cc325c8efbb84ca753e8b8": "650bac355765b2f2b3838a3128708941",
-                    "9bfbe9231fdf30b0a83d9bb1d83b6d01": "074e566712adefd7c786c295d658d014",
-                    "e9e3db463c763f04a6eb8589184832e8": "ce735927a76f9419a25a6c70e81b9ef8"
-                }
-            }
-        },
-        {
-            "id": "papare-tv-sin",
-            "name": "Papare Tv Sinhala",
-            "logo": "https://yt3.googleusercontent.com/krdKKbHCJcmCBS-eHNDn9LYF-yRxILw0rkpfyKiDPfMLVMZ4LUzSJ_wBUabhEpuyqKpzraS3Kg=s900-c-k-c0x00ffffff-no-rj",
-            "mpdUrl": "https://d1u1q4dyvfijhv.cloudfront.net/out/v1/4298b56e9d0246c29f75c66e3b6d0032/index.mpd",
-            "quality": "HD",
-            "drm": {
-                "clearKeys": {
-                    "a2ca250b5452327d8c975e3d1a9e6f27": "b38e253e90e1dd00e4d5459220572d57",
-                    "38e755aa5f2532689813f76a406c1030": "4f760f1efb1a86280d40936f83b396ce",
-                    "d3c56f4f59c23eeebd330c66d3de952d": "34e0e82a064b139af58c3d33950cf88d",
-                    "813c331ab57635e3be339a50e407448d": "76f6b4f2b5f0c14d51c241f446a121b7"
-                }
-            }
         }
     ]
 }
