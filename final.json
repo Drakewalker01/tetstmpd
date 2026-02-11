@@ -1,6 +1,18 @@
 {
     "channels": [
         {
+            "id": "prime-tvstream",
+            "name": "Prime Stream 1",
+            "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
+            "mpdUrl": "https://otte.live.fly.ww.aiv-cdn.net/syd-nitro/live/dash/enc/gmgcjjmmtb/out/v1/b02b49b7e4244b4ebaf4f2d576a97228/cenc.mpd",
+            "quality": "1080p",
+            "drm": {
+                "clearKeys": {
+                    "da661ad935054591590c7487368b26f3": "10229bfa52d2e601b3e88b7951dc0bae"
+                }
+            }
+        },
+        {
             "id": "prime-tvstream3",
             "name": "Prime Stream 3",
             "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
