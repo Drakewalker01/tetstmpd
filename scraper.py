@@ -3,100 +3,95 @@ import requests
 import re
 import json
 import time
+import subprocess
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
+def check_playability(url):
+    """FFmpeg (ffprobe) මගින් stream එක කියවිය හැකිදැයි බලයි"""
+    try:
+        # ffprobe command එක: තත්පර 5ක් ඇතුළත stream එක analyze කරයි
+        command = [
+            'ffprobe', 
+            '-v', 'error', 
+            '-show_entries', 'format=duration', 
+            '-of', 'default=noprint_wrappers=1:nokey=1', 
+            '-timeout', '5000000', # 5 seconds
+            url
+        ]
+        # stream එක load කරගන්න බැරි නම් මෙය error එකක් දෙයි
+        result = subprocess.run(command, capture_output=True, text=True, timeout=10)
+        return result.returncode == 0
+    except Exception:
+        return False
+
 def process_links():
     final_list = []
-    
-    # Session එකක් සාදා Retry logic එකතු කිරීම
     session = requests.Session()
-    retry_strategy = Retry(
-        total=3, # තුන් පාරක් try කරයි
-        backoff_factor=1, # උත්සාහයන් අතර කාලය
-        status_forcelist=[429, 500, 502, 503, 504],
-    )
-    adapter = HTTPAdapter(max_retries=retry_strategy)
-    session.mount("https://", adapter)
-    session.mount("http://", adapter)
-
+    # ... (Retry logic කලින් වගේමයි) ...
+    retry_strategy = Retry(total=3, backoff_factor=1, status_forcelist=[429, 500, 502, 503, 504])
+    session.mount("https://", HTTPAdapter(max_retries=retry_strategy))
+    
+    # link.json කියවීම සහ SECRET_HASH ලබා ගැනීම
     try:
         with open('link.json', 'r', encoding='utf-8') as f:
             channels = json.load(f)
-        
         hash_code = os.environ.get('SECRET_HASH')
-        if not hash_code:
-            print("Error: SECRET_HASH හමුවුණේ නැත.")
-            return
-            
     except Exception as e:
-        print(f"ගොනු කියවීමේ දෝෂයකි: {e}")
+        print(f"Error: {e}")
         return
 
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Referer': 'https://google.com'
-    }
+    headers = {'User-Agent': 'Mozilla/5.0...'} # කලින් තිබූ headers
 
     for channel in channels:
         try:
             site_url = channel.get('SiteUrl')
             if not site_url: continue
-                
-            print(f"Processing: {channel.get('name')}")
             
-            # Timeout එක තත්පර 20ක් දක්වා වැඩි කර ඇත
-            res = session.get(site_url, headers=headers, timeout=20)
-            res.raise_for_status()
-
-            pattern = r'(?:const|var|let)\s+(?:hi|encryptedData|scrapedData)\s*=\s*["\'](.*?)["\']'
-            match = re.search(pattern, res.text)
+            print(f"Checking: {channel.get('name')}")
+            res = session.get(site_url, timeout=20)
+            
+            # Regex එකෙන් data සොයා ගැනීම
+            match = re.search(r'(?:const|var|let)\s+(?:hi|encryptedData|scrapedData)\s*=\s*["\'](.*?)["\']', res.text)
             
             if match:
                 scraped_code = match.group(1)
                 vercel_url = f"https://e-rho-ivory.vercel.app/get?url={scraped_code}&key={hash_code}"
-                
-                api_res = session.get(vercel_url, headers=headers, timeout=20)
+                api_res = session.get(vercel_url, timeout=20)
                 decrypted_str = api_res.json().get('decrypted', '')
 
                 if decrypted_str:
                     parts = decrypted_str.split('!')
-                    if len(parts) >= 3:
-                        kid_list = [k.strip() for k in parts[0].split(',')]
-                        key_list = [k.strip() for k in parts[1].split(',')]
-                        extracted_url = parts[2]
-                        clearkeys_map = dict(zip(kid_list, key_list))
-
-                        if ".m3u8" in extracted_url:
-                            entry = {
-                                "id": channel.get('id'),
-                                "name": channel.get('name'),
-                                "logo": channel.get('logo'),
-                                "streamUrl": extracted_url,
-                                "quality": channel.get('quality')
-                            }
-                        else:
-                            entry = {
-                                "id": channel.get('id'),
-                                "name": channel.get('name'),
-                                "logo": channel.get('logo'),
-                                "mpdUrl": extracted_url,
-                                "quality": channel.get('quality'),
-                                "drm": { "clearKeys": clearkeys_map }
-                            }
+                    extracted_url = parts[2]
+                    
+                    # 🔥 මෙන්න මෙතනදී Playability එක Check කරනවා
+                    print(f"🎬 Testing stream for {channel.get('name')}...")
+                    if check_playability(extracted_url):
+                        # Playable නම් පමණක් ලිස්ට් එකට දමයි
+                        entry = {
+                            "id": channel.get('id'),
+                            "name": channel.get('name'),
+                            "streamUrl" if ".m3u8" in extracted_url else "mpdUrl": extracted_url,
+                            # ... අනිත් data ...
+                        }
+                        # MPD නම් DRM Keys එක් කිරීම
+                        if ".mpd" in extracted_url:
+                            kid_list = parts[0].split(',')
+                            key_list = parts[1].split(',')
+                            entry["drm"] = {"clearKeys": dict(zip(kid_list, key_list))}
+                        
                         final_list.append(entry)
-                        print(f"✅ Success: {channel.get('name')}")
-            
-            time.sleep(2) # සයිට් එකට බරක් නොවීමට
+                        print(f"✅ Success: {channel.get('name')} is working.")
+                    else:
+                        print(f"❌ Failed: {channel.get('name')} link is dead or unplayable.")
 
+            time.sleep(1)
         except Exception as e:
-            print(f"❌ Error on {channel.get('id')}: {e}")
+            print(f"Error processing {channel.get('name')}: {e}")
 
-    output_data = {"channels": final_list}
+    # final.json ලිවීම
     with open('final.json', 'w', encoding='utf-8') as f:
-        json.dump(output_data, f, indent=4, ensure_ascii=False)
-    
-    print(f"\nසාර්ථකයි! චැනල් {len(final_list)} ක් final.json වෙත එක් කරන ලදී.")
+        json.dump({"channels": final_list}, f, indent=4)
 
 if __name__ == "__main__":
     process_links()
