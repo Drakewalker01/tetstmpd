@@ -1,7 +1,14 @@
 [
   {
     "id": "prime-tvstream",
-    "name": "Prime Stream",
+    "name": "Prime Stream 1",
+    "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
+    "quality": "1080p",
+    "SiteUrl": "https://livecricketsl.cc.nf/livecricket/sports.php?id=prime1"
+  },
+  {
+    "id": "prime-tvstream3",
+    "name": "Prime Stream 3",
     "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
     "quality": "1080p",
     "SiteUrl": "https://livecricketsl.cc.nf/livecricket/sports.php?id=prime3"
