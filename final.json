@@ -58,11 +58,11 @@
             "id": "prime-tvstream3",
             "name": "Prime Stream 3",
             "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
-            "mpdUrl": "https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/83taeafait/out/v1/8f460e2902ee422e9ee8229e6de25719/cenc.mpd",
+            "mpdUrl": "https://a65live-pv-ta-amazon.akamaized.net/syd-nitro/live/dash/enc/igjuwt107o/out/v1/489e489428ce4992b9bd784d6b948ab3/cenc.mpd",
             "quality": "1080p",
             "drm": {
                 "clearKeys": {
-                    "ed76c18710d621a87c89dedc7c13019f": "7241c82fe48525a9dc6be6d7bb86611f"
+                    "b07e9785466b831915621dc51ed50d3c": "af30a9d18114259f21a3cc9e34ff649d"
                 }
             }
         },
