@@ -30,7 +30,7 @@
             "id": "prime-tvstream2",
             "name": "Prime Stream 2",
             "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
-            "mpdUrl": "https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/ct8pml1x7b/out/v1/a3f76c40f2c74804876697c4c284780f/cenc.mpd",
+            "mpdUrl": "https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/qkp4pavybn/out/v1/2298afadf64943adb0b44dc540ace1ce/cenc.mpd",
             "quality": "1080p",
             "drm": {
                 "clearKeys": {
