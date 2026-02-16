@@ -1,6 +1,20 @@
 {
     "channels": [
         {
+            "id": "papare-tv",
+            "name": "Papare TV",
+            "logo": "https://yt3.googleusercontent.com/krdKKbHCJcmCBS-eHNDn9LYF-yRxILw0rkpfyKiDPfMLVMZ4LUzSJ_wBUabhEpuyqKpzraS3Kg=s900-c-k-c0x00ffffff-no-rj",
+            "streamUrl": "https://d2fml3b4eim0bv.cloudfront.net/out/v1/a1ee4c68d261495c91c480ddb2eb672c/cmaf/index.m3u8",
+            "quality": "1080p"
+        },
+        {
+            "id": "papare-tv-sin",
+            "name": "Papare Tv Sinhala",
+            "logo": "https://yt3.googleusercontent.com/krdKKbHCJcmCBS-eHNDn9LYF-yRxILw0rkpfyKiDPfMLVMZ4LUzSJ_wBUabhEpuyqKpzraS3Kg=s900-c-k-c0x00ffffff-no-rj",
+            "streamUrl": "https://d1u1q4dyvfijhv.cloudfront.net/out/v1/f4d1c8e1210c4eda97a5b5f83593fdfb/cmaf/index.m3u8",
+            "quality": "HD"
+        },
+        {
             "id": "prime-tvstream",
             "name": "Prime Stream 1",
             "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
