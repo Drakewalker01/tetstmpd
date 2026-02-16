@@ -13,6 +13,18 @@
             }
         },
         {
+            "id": "prime-tvstream2",
+            "name": "Prime Stream 2",
+            "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
+            "mpdUrl": "https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/qkp4pavybn/out/v1/2298afadf64943adb0b44dc540ace1ce/cenc.mpd",
+            "quality": "1080p",
+            "drm": {
+                "clearKeys": {
+                    "2904b17cb64c996dbc254981b7602863": "66a7ef671b84498e64f94e8401fe8cb9"
+                }
+            }
+        },
+        {
             "id": "prime-tvstream3",
             "name": "Prime Stream 3",
             "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
