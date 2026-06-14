@@ -4,11 +4,11 @@
             "id": "prime-tvstream2",
             "name": "Prime Stream 2",
             "logo": "https://i.postimg.cc/y8xbzQ3k/prime-logo-png-seeklogo-557061.png",
-            "mpdUrl": "https://live-pv-ta.amazon.fastly-edge.com/lhr-nitro/live/clients/dash/enc/vdx0scnjmm/out/v1/8777014e61534e7c873dc695bc485397/cenc.mpd",
+            "mpdUrl": "https://abguryqaaaaaaaamdwlapgwrf4xpj.bia-cf.live.pv-cdn.net/sin-nitro/live/clients/dash/enc/87d0tehlad/out/v1/403835568f5b4e3ca2d201cc88b594ee/cenc.mpd",
             "quality": "1080p",
             "drm": {
                 "clearKeys": {
-                    "2904b17cb64c996dbc254981b7602863": "66a7ef671b84498e64f94e8401fe8cb9"
+                    "ee0c99be51120d109657df5229b48b01": "6f0cc18e09de8ec73414bb2209d6c63b"
                 }
             }
         },
@@ -28,7 +28,7 @@
             "id": "cricket-willow",
             "name": "Willow HD",
             "logo": "https://i.postimg.cc/hjPqm15C/download.png",
-            "mpdUrl": "https://watch.livecricketsl.xyz/proxy/hubs.php/index.mpd?token=5f263fc0673cfa0d46ea9df38806324d&url=https://ucdn.starhubgo.com/bpk-tv/HubSports4HDnew/output/manifest.mpd",
+            "mpdUrl": "https://watch.livecricketsl.xyz/proxy/hubs.php/index.mpd?token=6d6bcfca6017436591b94b0867b3d8cb&url=https://ucdn.starhubgo.com/bpk-tv/HubSports4HDnew/output/manifest.mpd",
             "quality": "1080p",
             "drm": {
                 "clearKeys": {
