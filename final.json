@@ -23,18 +23,6 @@
                     "0602126a87ecc60befc3d2fc37e1f029": "2b8e95743b518607c177937dac77e130"
                 }
             }
-        },
-        {
-            "id": "cricket-willow",
-            "name": "Willow HD",
-            "logo": "https://i.postimg.cc/hjPqm15C/download.png",
-            "mpdUrl": "https://watch.livecricketsl.xyz/proxy/hubs.php/index.mpd?token=4b666d80795e6d41aa8a1b42e05ace6e&url=https://ucdn.starhubgo.com/bpk-tv/HubSports4HDnew/output/manifest.mpd",
-            "quality": "1080p",
-            "drm": {
-                "clearKeys": {
-                    "9a29d4f3b6e540b3aa2f36927c01b6f4": "57b670b45b5cb453a9f48fa975b702c1"
-                }
-            }
         }
     ]
 }
